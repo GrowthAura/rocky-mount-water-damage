@@ -5,7 +5,6 @@
       <p class="footer-brand-name">Water Damage <span>Rocky Mount</span></p>
       <p>Rocky Mount, NC &middot; Nash &amp; Edgecombe Counties</p>
       <a class="btn btn-gold" href="tel:+12523582834"><?= phone_svg() ?> Call (252) 358-2834</a>
-      <p><a href="tel:+12523582834">(252) 358-2834</a></p>
     </div>
     <nav class="footer-col" aria-label="Services">
       <h3>Services</h3>
