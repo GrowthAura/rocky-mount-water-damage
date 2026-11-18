@@ -1,9 +1,11 @@
 <!DOCTYPE html>
-<?php global $SERVICES, $GUIDES, $SITE; ?>
+<?php global $NAV_SERVICES, $GUIDES, $SITE; ?>
 <html lang="en-US">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#0A5451">
+<meta property="og:locale" content="en_US">
 <title><?= esc($HEAD['title']) ?></title>
 <meta name="description" content="<?= esc($HEAD['description']) ?>">
 <?php if (!empty($HEAD['canonical'])): ?>
@@ -34,7 +36,7 @@
 <a class="skip-link" href="#main">Skip to content</a>
 <header class="site-header" id="site-header">
   <div class="container header-inner">
-    <a class="brand" href="/" aria-label="Water Damage Rocky Mount — home">
+    <a class="brand" href="/"<?= ($currentSlug === '/') ? ' aria-current="page"' : '' ?> aria-label="Water Damage Rocky Mount — home">
       <span class="brand-name">Water Damage <span class="brand-city">Rocky Mount</span></span>
       <span class="brand-tag">24/7</span>
     </a>
@@ -42,7 +44,7 @@
       <details class="nav-services">
         <summary>Services</summary>
         <div class="nav-dropdown">
-          <?php foreach ($SERVICES as $s): ?>
+          <?php foreach ($NAV_SERVICES as $s): ?>
           <a href="<?= esc($s['href']) ?>"<?= ($currentSlug === $s['href']) ? ' aria-current="page"' : '' ?>><?= esc($s['label']) ?></a>
           <?php endforeach; ?>
           <span class="nav-group">Guides</span>
@@ -58,17 +60,17 @@
     <details class="mobile-menu">
       <summary aria-label="Menu"><span aria-hidden="true">&#9776;</span><span class="menu-label">Menu</span></summary>
       <div class="mobile-menu-panel">
-        <a href="/">Home</a>
+        <a href="/"<?= ($currentSlug === '/') ? ' aria-current="page"' : '' ?>>Home</a>
         <span class="nav-group">Services</span>
-        <?php foreach ($SERVICES as $s): ?>
-        <a href="<?= esc($s['href']) ?>"><?= esc($s['label']) ?></a>
+        <?php foreach ($NAV_SERVICES as $s): ?>
+        <a href="<?= esc($s['href']) ?>"<?= ($currentSlug === $s['href']) ? ' aria-current="page"' : '' ?>><?= esc($s['label']) ?></a>
         <?php endforeach; ?>
         <span class="nav-group">Guides</span>
         <?php foreach ($GUIDES as $g): ?>
-        <a href="<?= esc($g['href']) ?>"><?= esc($g['label']) ?></a>
+        <a href="<?= esc($g['href']) ?>"<?= ($currentSlug === $g['href']) ? ' aria-current="page"' : '' ?>><?= esc($g['label']) ?></a>
         <?php endforeach; ?>
-        <a href="/about">About</a>
-        <a href="/contact">Contact</a>
+        <a href="/about"<?= ($currentSlug === '/about') ? ' aria-current="page"' : '' ?>>About</a>
+        <a href="/contact"<?= ($currentSlug === '/contact') ? ' aria-current="page"' : '' ?>>Contact</a>
         <a class="btn btn-accent" href="tel:+12523582834">Call (252) 358-2834</a>
       </div>
     </details>

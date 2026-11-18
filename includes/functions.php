@@ -43,6 +43,25 @@ $GUIDES = [
     ['label' => 'Insurance Claim Help', 'href' => '/water-damage-insurance-claim-help-rocky-mount-nc'],
     ['label' => 'What To Do After Water Damage', 'href' => '/what-to-do-after-water-damage-rocky-mount-nc'],
 ];
+// NAV COUNTS (his 2026-11-18 order — header 6, footer 8, nothing more).
+// Header + mobile menu carry ONLY these 6 money services, in this order;
+// the footer carries these 6 + Hurricane & Storm + AC & HVAC (8).
+// $SERVICES (19) stays intact above: it still drives the lead-form
+// service dropdown (lead-handler.php), and all 19 service pages stay live
+// and stay linked from body content + homepage cards — ONLY the nav lists
+// are trimmed. Guides (2) stay exactly as-is in both places.
+$NAV_SERVICES = [
+    ['label' => 'Emergency Water Removal', 'href' => '/emergency-water-removal-rocky-mount-nc'],
+    ['label' => 'Crawl Space Water Damage', 'href' => '/crawl-space-water-damage-rocky-mount-nc'],
+    ['label' => 'Flood Damage Restoration', 'href' => '/flood-damage-restoration-rocky-mount-nc'],
+    ['label' => 'Burst Pipe & Plumbing Leak', 'href' => '/burst-pipe-water-damage-rocky-mount-nc'],
+    ['label' => 'Mold Remediation', 'href' => '/mold-remediation-rocky-mount-nc'],
+    ['label' => 'Sewage & Septic Backup', 'href' => '/sewage-backup-cleanup-rocky-mount-nc'],
+];
+$FOOTER_SERVICES = array_merge($NAV_SERVICES, [
+    ['label' => 'Hurricane & Storm Water Damage', 'href' => '/hurricane-storm-water-damage-rocky-mount-nc'],
+    ['label' => 'AC & HVAC Water Damage', 'href' => '/ac-hvac-water-damage-rocky-mount-nc'],
+]);
 // Towns named in the doc (footer Areas column, plain text — no pages exist).
 $TOWNS = ['Rocky Mount', 'West Mount', 'Battleboro', 'Tarboro', 'Nashville', 'Sharpsburg', 'Pinetops', 'Princeville', 'Spring Hope', 'Red Oak', 'Dortches', 'Whitakers', 'Elm City', 'Wilson'];
 

@@ -1,4 +1,4 @@
-<?php global $SERVICES, $GUIDES, $TOWNS, $SITE; ?>
+<?php global $FOOTER_SERVICES, $GUIDES, $TOWNS, $SITE; ?>
 <footer class="site-footer">
   <div class="container footer-grid">
     <div class="footer-brand">
@@ -9,17 +9,17 @@
     </div>
     <nav class="footer-col" aria-label="Services">
       <h3>Services</h3>
-      <?php foreach ($SERVICES as $s): ?>
-      <a href="<?= esc($s['href']) ?>"><?= esc($s['label']) ?></a>
+      <?php foreach ($FOOTER_SERVICES as $s): ?>
+      <a href="<?= esc($s['href']) ?>"<?= ($currentSlug === $s['href']) ? ' aria-current="page"' : '' ?>><?= esc($s['label']) ?></a>
       <?php endforeach; ?>
     </nav>
     <nav class="footer-col" aria-label="Company">
       <h3>Company</h3>
-      <a href="/">Home</a>
-      <a href="/about">About</a>
-      <a href="/contact">Contact</a>
+      <a href="/"<?= ($currentSlug === '/') ? ' aria-current="page"' : '' ?>>Home</a>
+      <a href="/about"<?= ($currentSlug === '/about') ? ' aria-current="page"' : '' ?>>About</a>
+      <a href="/contact"<?= ($currentSlug === '/contact') ? ' aria-current="page"' : '' ?>>Contact</a>
       <?php foreach ($GUIDES as $g): ?>
-      <a href="<?= esc($g['href']) ?>"><?= esc($g['label']) ?></a>
+      <a href="<?= esc($g['href']) ?>"<?= ($currentSlug === $g['href']) ? ' aria-current="page"' : '' ?>><?= esc($g['label']) ?></a>
       <?php endforeach; ?>
     </nav>
     <div class="footer-col" aria-label="Areas we serve">

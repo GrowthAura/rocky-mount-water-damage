@@ -8,6 +8,7 @@ global $SITE;
 $isContact = ($slug === '/contact');
 $form = $form ?? [];
 $errors = $form['errors'] ?? [];
+$errFields = $form['error_fields'] ?? []; // WOW round: fields that failed
 $values = $form['values'] ?? [];
 $notice = $form['notice'] ?? false;
 ?>
@@ -19,21 +20,21 @@ $notice = $form['notice'] ?? false;
   </div>
   <?php else: ?>
   <?php if ($errors): ?>
-  <div class="form-note" role="alert">
+  <div class="form-note" role="alert" id="form-errors">
     <p><strong>Please fix the following:</strong> <?= esc(implode(' ', $errors)) ?></p>
   </div>
   <?php endif; ?>
   <form method="post" action="" novalidate>
     <input type="hidden" name="page" value="<?= esc($slug) ?>">
     <label for="f-name">Your name</label>
-    <input id="f-name" name="name" type="text" autocomplete="name" required maxlength="120" value="<?= esc($values['name'] ?? '') ?>">
+    <input id="f-name" name="name" type="text" autocomplete="name" required maxlength="120" value="<?= esc($values['name'] ?? '') ?>"<?= in_array('name', $errFields) ? ' aria-invalid="true" aria-describedby="form-errors"' : '' ?>>
     <label for="f-phone">Phone number</label>
-    <input id="f-phone" name="phone" type="tel" autocomplete="tel" required maxlength="40" value="<?= esc($values['phone'] ?? '') ?>">
+    <input id="f-phone" name="phone" type="tel" autocomplete="tel" required maxlength="40" value="<?= esc($values['phone'] ?? '') ?>"<?= in_array('phone', $errFields) ? ' aria-invalid="true" aria-describedby="form-errors"' : '' ?>>
     <?php if ($isContact): ?>
     <label for="f-address_zip">Address or ZIP</label>
     <input id="f-address_zip" name="address_zip" type="text" autocomplete="postal-code" maxlength="160" value="<?= esc($values['address_zip'] ?? '') ?>">
     <label for="f-what">What happened?</label>
-    <select id="f-what" name="what">
+    <select id="f-what" name="what"<?= in_array('what', $errFields) ? ' aria-invalid="true" aria-describedby="form-errors"' : '' ?>>
       <option value="">Select what happened</option>
       <?php foreach (lead_what_options() as $o): ?>
       <option value="<?= esc($o) ?>"<?= (($values['what'] ?? '') === $o) ? ' selected' : '' ?>><?= esc(ucfirst($o)) ?></option>
@@ -55,7 +56,7 @@ $notice = $form['notice'] ?? false;
       <?php endforeach; ?>
     </select>
     <label for="f-message">Tell us what happened</label>
-    <textarea id="f-message" name="message" required maxlength="2000"><?= esc($values['message'] ?? '') ?></textarea>
+    <textarea id="f-message" name="message" required maxlength="2000"<?= in_array('message', $errFields) ? ' aria-invalid="true" aria-describedby="form-errors"' : '' ?>><?= esc($values['message'] ?? '') ?></textarea>
     <?php endif; ?>
     <p class="hp-field" aria-hidden="true"><label>Leave this empty <input type="text" name="website" tabindex="-1" autocomplete="off" value=""></label></p>
     <button class="btn btn-accent" type="submit">Request a Callback</button>

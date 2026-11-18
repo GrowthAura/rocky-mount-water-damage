@@ -7,6 +7,8 @@ function handle_lead_post($post, $path)
     $isContact = ($path === '/contact');
     $values = [];
     $errors = [];
+    $errorFields = []; // WOW round: which fields failed, so the form can
+    // mark them aria-invalid (visible red border on the field itself).
     $fields = $isContact
         ? ['name', 'phone', 'address_zip', 'what', 'still_coming', 'best_time']
         : ['name', 'phone', 'service', 'message'];
@@ -20,22 +22,27 @@ function handle_lead_post($post, $path)
     }
     if ($values['name'] === '') {
         $errors[] = 'Please enter your name.';
+        $errorFields[] = 'name';
     }
     if ($values['phone'] === '') {
         $errors[] = 'Please enter your phone number.';
+        $errorFields[] = 'phone';
     } elseif (!preg_match('/^[0-9+\-() ]{7,40}$/', $values['phone'])) {
         $errors[] = 'Please enter a valid phone number.';
+        $errorFields[] = 'phone';
     }
     if (!$isContact && $values['message'] === '') {
         $errors[] = 'Please tell us what happened.';
+        $errorFields[] = 'message';
     }
     if ($isContact && $values['what'] === '') {
         $errors[] = 'Please say what happened.';
+        $errorFields[] = 'what';
     }
     if ($errors) {
-        return ['errors' => $errors, 'values' => $values, 'notice' => false];
+        return ['errors' => $errors, 'error_fields' => $errorFields, 'values' => $values, 'notice' => false];
     }
-    return ['errors' => [], 'values' => $values, 'notice' => true];
+    return ['errors' => [], 'error_fields' => [], 'values' => $values, 'notice' => true];
 }
 
 // Service options for the lead-form dropdown (tabs 02-20 + guides).
