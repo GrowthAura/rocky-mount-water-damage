@@ -43,7 +43,7 @@ $MIME = [
     'txt' => 'text/plain', 'xml' => 'application/xml',
 ];
 $isStatic = str_starts_with($path, '/assets/') ||
-    in_array($path, ['/favicon.ico', '/favicon.svg', '/robots.txt', '/sitemap.xml', '/llms.txt'], true);
+    in_array($path, ['/favicon.ico', '/favicon.svg', '/robots.txt', '/sitemap.xml', '/llms.txt', '/91399749783f6d45200e4e058c3c42ce.txt'], true); // last: IndexNow key file (public by design, Bing fetches it)
 if ($isStatic) {
     $file = $ROOT . $path;
     if (is_file($file)) {
