@@ -24,7 +24,10 @@
     </nav>
     <div class="footer-col" aria-label="Areas we serve">
       <h3>Areas We Serve</h3>
-      <p class="footer-areas"><?php foreach ($TOWNS as $i => $t): ?><?= $i ? ' &middot; ' : '' ?><?= esc($t) ?><?php endforeach; ?> &middot; ZIPs 27801, 27803, 27804</p>
+      <ul class="footer-areas-list">
+        <?php foreach ($TOWNS as $t): ?><li><?= esc($t) ?></li><?php endforeach; ?>
+      </ul>
+      <p class="footer-areas-zips">ZIPs 27801, 27803, 27804</p>
       <p>Tar River &amp; Stoney Creek</p>
     </div>
   </div>

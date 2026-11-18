@@ -46,8 +46,7 @@ $GUIDES = [
 // NAV COUNTS (his 2026-11-18 order — header 6, footer 8, nothing more).
 // Header + mobile menu carry ONLY these 6 money services, in this order;
 // the footer carries these 6 + Hurricane & Storm + AC & HVAC (8).
-// $SERVICES (19) stays intact above: it still drives the lead-form
-// service dropdown (lead-handler.php), and all 19 service pages stay live
+// $SERVICES (19) stays intact above: all 19 service pages stay live
 // and stay linked from body content + homepage cards — ONLY the nav lists
 // are trimmed. Guides (2) stay exactly as-is in both places.
 $NAV_SERVICES = [

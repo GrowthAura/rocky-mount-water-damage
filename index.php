@@ -9,12 +9,10 @@ if (is_file($ROOT . '/data/media-manifest.php')) {
     require $ROOT . '/data/media-manifest.php';
 }
 require $ROOT . '/includes/functions.php';
-require $ROOT . '/includes/lead-handler.php';
 
 $PAGES = build_pages();
 $SITE_URL = 'https://rockymountwaterdamage.site';
 
-$method = $_SERVER['REQUEST_METHOD'] ?? 'GET';
 // F-12 (zero-blunder): do NOT use parse_url() for the path — parse_url()
 // treats a leading "//" as a scheme-relative URL (host, no path), so
 // "//" collapsed to "/" and served the homepage with 200. Split on "?"
@@ -60,24 +58,17 @@ if ($isStatic) {
     exit;
 }
 
-// 3. Lead form submission (any known page). No mail is sent; the
-// renderer shows an honest notice instead.
-$form = null;
-if ($method === 'POST' && ($path === '/' || isset($PAGES[$path]))) {
-    $form = handle_lead_post($_POST, $path);
-}
-
-// 4. Routes.
+// 3. Routes.
 if ($path === '/') {
-    render_page('/', $PAGES['/'], $form);
+    render_page('/', $PAGES['/']);
     exit;
 }
 if (isset($PAGES[$path])) {
-    render_page($path, $PAGES[$path], $form);
+    render_page($path, $PAGES[$path]);
     exit;
 }
 
-// 5. 404.
+// 4. 404.
 http_response_code(404);
 $HEAD = [
     'title' => 'Page Not Found | Water Damage Rocky Mount',
@@ -110,9 +101,9 @@ exit;
 
 // ---------------------------------------------------------------------------
 // Page renderer. Every visible word inside <main> comes from data/pages.php
-// (the doc, verbatim); only header/footer/form chrome is template text.
+// (the doc, verbatim); only header/footer chrome is template text.
 // ---------------------------------------------------------------------------
-function render_page($slug, $page, $form = null)
+function render_page($slug, $page)
 {
     global $ROOT, $SITE_URL;
     $canon = $SITE_URL . ($slug === '/' ? '/' : $slug);
@@ -153,9 +144,9 @@ function render_page($slug, $page, $form = null)
     $is_404 = false;
     require $ROOT . '/includes/header.php';
     render_main($slug, $page, $hero);
-    // Final CTA band: phone + lead form. No H2/paragraph words are added
-    // here — the form's own labels are template chrome, not page copy.
-    render_final_cta($slug, $page, $form);
+    // Final CTA band: phone button only (lead form removed 2026-11-19,
+    // user order "forum hata do" — the form is gone sitewide).
+    render_final_cta($slug, $page);
     require $ROOT . '/includes/footer.php';
 }
 
@@ -318,6 +309,19 @@ function render_main($slug, $page, $hero)
             $i++;
             continue;
         }
+        if ($t === 'areas') {
+            // Areas We Serve grid (user order 2026-11-19): one H3 per town,
+            // "Water Damage Restoration in <town>", from $TOWNS (doc towns).
+            global $TOWNS;
+            echo '<section class="areas-section" aria-label="Areas we serve">' . "\n";
+            echo '<div class="areas-grid">' . "\n";
+            foreach ($TOWNS as $town) {
+                echo '<article class="area-card"><h3>Water Damage Restoration in ' . esc($town) . '</h3></article>' . "\n";
+            }
+            echo "</div>\n</section>\n";
+            $i++;
+            continue;
+        }
         if ($t === 'steps') {
             echo '<ol class="steps">' . "\n";
             foreach ($b['steps'] as $s) {
@@ -427,19 +431,13 @@ function cta_href($cta)
     return 'tel:+12523582834';
 }
 
-// Final CTA band (after </main>): phone button + lead form side by side.
-// No H2 or paragraph words from the template — only the form's own labels.
-function render_lead_form($slug, $page, $form)
+// Final CTA band (after </main>): phone button only, centred.
+// (Lead form removed 2026-11-19 on the user's order; the "Request a
+// Callback" doc buttons stay — they dial tel: or link /contact already.)
+function render_final_cta($slug, $page)
 {
-    global $ROOT;
-    require $ROOT . '/includes/lead-form.php';
-}
-
-function render_final_cta($slug, $page, $form)
-{
-    echo '<section class="final-cta"><div class="container final-cta-grid">' . "\n";
-    echo '<div class="final-cta-call"><a class="btn btn-accent btn-big" href="tel:+12523582834">' . phone_svg() . ' Call (252) 358-2834</a>'
-        . '<p class="final-cta-note">24/7 Emergency Response</p></div>' . "\n";
-    render_lead_form($slug, $page, $form);
+    echo '<section class="final-cta"><div class="container final-cta-single">' . "\n";
+    echo '<a class="btn btn-accent btn-big" href="tel:+12523582834">' . phone_svg() . ' Call (252) 358-2834</a>'
+        . '<p class="final-cta-note">24/7 Emergency Response</p>' . "\n";
     echo "</div></section>\n";
 }

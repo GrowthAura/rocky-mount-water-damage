@@ -11107,6 +11107,13 @@ function build_pages() {
                 ],
                 [
                     'type' => 'h2',
+                    'text' => 'Areas We Serve',
+                ],
+                [
+                    'type' => 'areas',
+                ],
+                [
+                    'type' => 'h2',
                     'text' => 'Water Damage Services We Provide in Rocky Mount',
                 ],
                 [
@@ -11559,8 +11566,7 @@ function build_pages() {
                     'text' => 'Areas We Serve Around Rocky Mount, NC',
                 ],
                 [
-                    'type' => 'inline_list',
-                    'text' => 'Rocky Mount • West Mount • Battleboro • Tarboro • Nashville • Sharpsburg • Pinetops • Princeville • Spring Hope • Red Oak • Dortches • Whitakers • Elm City • Wilson',
+                    'type' => 'areas',
                 ],
                 [
                     'type' => 'p',
